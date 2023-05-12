@@ -292,8 +292,8 @@ const VideoEdit = (FILE_URL: string, id: string) => {
     };
 
     const getExtradata = () => {
-        // generate the property "description" for the object used in VideoDecoder.configure
-        // This function have been written by Thomas Guilbert from Google
+        // 为VideoDecoder.configure中使用的对象生成属性“description”
+        // 此函数由谷歌的Thomas Guilbert编写
 
         const avccBox = file.moov.traks[0].mdia.minf.stbl.stsd.entries[0].avcC;
 
@@ -434,6 +434,7 @@ const VideoEdit = (FILE_URL: string, id: string) => {
 
     const playVideo = (start: number = 0) => {
         ctx?.clearRect(0, 0, outputW, outputH)
+        console.log(videoFrameDurationInMicrosecond)
         const playLoop = (index: number) => {
             const imageBitmap = videoFrames[index];
             if (index === (videoFrames.length - 1)) {
@@ -450,7 +451,7 @@ const VideoEdit = (FILE_URL: string, id: string) => {
             }, videoFrameDurationInMicrosecond / 1000 );
         }
         drawVideoImage(videoFrames[start])
-        playLoop(start + 1)
+        playLoop(start)
     }
 
     const playAudio = async (start: number = 0) => {
